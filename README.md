@@ -33,3 +33,12 @@ This project is part of my journey into cybersecurity. It demonstrates practical
 ## 👨‍💻 Author
 
 Aspiring Cybersecurity Professional passionate about security tools, ethical hacking, and defensive security.
+
+
+cybersecurity
+python
+security-tools
+cryptography
+password-security
+ethical-hacking
+security-learning
