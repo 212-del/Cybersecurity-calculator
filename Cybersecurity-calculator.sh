@@ -1,7 +1,7 @@
 #!/bin/bash
 sudo apt install bc || pkg install bc
 echo -e  "\e[36;1;40m A Menu Based Calculator. \e[0m"
-echo -e "\e[36;1;40m Below  operatation can be performed using operators.\n{1} Base64 Encoder\n{2} Base64 Decoder\n{3} Hash Identifier\n{4} Exit. \e[0m"
+echo -e "\e[36;1;40m Below  operatation can be performed using operators.\n{1} Base64 Encoder\n{2} Base64 Decoder\n{3} Hash Identifier\n{4} Base32 Encoder\n{5} Base32 Decoder\n{6}{4} Exit. \e[0m"
 until [[ $Choice1 =~ ^-?[0-9]+$ ]]; do
   read -r -p  "   Enter Choice: " Choice1
 done
@@ -41,4 +41,3 @@ case ${Choice1} in
  *)
   echo "Kindly choose the correct choice"
 esac 
-
