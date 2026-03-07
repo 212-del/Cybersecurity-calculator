@@ -1,7 +1,6 @@
 #!/bin/bash
-sudo apt install bc || pkg install bc
 echo -e  "\e[36;1;40m A Menu Based Calculator. \e[0m"
-echo -e "\e[36;1;40m Below  operatation can be performed using operators.\n{1} Base64 Encoder\n{2} Base64 Decoder\n{3} Hash Identifier\n{4} Base32 Encoder\n{5} Base32 Decoder\n{6} Base58 Encoder\n{7} Base58 Decoder\n{8} Base16 Encoder\n{9} Base16 Decoder\nOne-way Encryption\n{10} SHA-256 Encryption{10} Exit. \e[0m"
+echo -e "\e[36;1;40m Below  operatation can be performed using operators.\n{1} Base64 Encoder\n{2} Base64 Decoder\n{3} Hash Identifier\n{4} Base32 Encoder\n{5} Base32 Decoder\n{6} Base58 Encoder\n{7} Base58 Decoder\n{8} Base16 Encoder\n{9} Base16 Decoder\nOne-way Encryption\n{10} SHA-256 Encryption\n{11} SHA-1 Enryption\n{12} SHA-224 Encryption\n{13} SHA-384 Encryption\n{14} SHA-512 Encryption\n{15} MD5 Encryption\n{16} BLAKE2 Encryption\n{17} Exit. \e[0m"
 until [[ $Choice1 =~ ^-?[0-9]+$ ]]; do
   read -r -p  "   Enter Choice: " Choice1
 done
@@ -65,12 +64,31 @@ case ${Choice1} in
  ;;
  11)
   read -r -p " Enter Text to Encrypt : " encode
-  echo -n "$encode" | sha256sum
+  echo -n "$encode" | sha1sum
  ;;
- 10)
+ 12)
+  read -r -p " Enter Text to Encrypt : " encode
+  echo -n "$encode" | sha224sum
+ ;;
+ 13)
+  read -r -p " Enter Text to Encrypt : " encode
+  echo -n "$encode" | sha384sum
+ ;;
+ 14)
+  read -r -p " Enter Text to Encrypt : " encode
+  echo -n "$encode" | sha512sum
+ ;;
+ 15)
+  read -r -p " Enter Text to Encrypt : " encode
+  echo -n "$encode" | md5sum
+ ;;
+ 16)
+  read -r -p " Enter Text to Encrypt : " encode
+  echo -n "$encode" | b2sum
+ ;;
+ 17)
   exit
  ;;
-
  *)
   echo  "Kindly choose the correct choice"
 esac 
