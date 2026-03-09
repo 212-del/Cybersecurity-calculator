@@ -1,6 +1,6 @@
 #!/bin/bash
 echo -e  "\e[36;1;40m A Menu Based Calculator. \e[0m"
-echo -e "\e[36;1;40m Below  operatation can be performed using operators.\n{1} Base64 Encoder\n{2} Base64 Decoder\n{3} Hash Identifier\n{4} Base32 Encoder\n{5} Base32 Decoder\n{6} Base58 Encoder\n{7} Base58 Decoder\n{8} Base16 Encoder\n{9} Base16 Decoder\nOne-way Encryption\n{10} SHA-256 Encryption\n{11} SHA-1 Enryption\n{12} SHA-224 Encryption\n{13} SHA-384 Encryption\n{14} SHA-512 Encryption\n{15} MD5 Encryption\n{16} BLAKE2 Encryption\n{17} ROT13 Encode\n{18} ROT13 Decoder\n{19} XOR Encoder and Decoder<On Work>\n{17} Exit. \e[0m"
+echo -e "\e[36;1;40m Below  operatation can be performed using operators.\n{1} Base64 Encoder\n{2} Base64 Decoder\n{3} Hash Identifier\n{4} Base32 Encoder\n{5} Base32 Decoder\n{6} Base58 Encoder\n{7} Base58 Decoder\n{8} Base16 Encoder\n{9} Base16 Decoder\nOne-way Encryption\n{10} SHA-256 Encryption\n{11} SHA-1 Enryption\n{12} SHA-224 Encryption\n{13} SHA-384 Encryption\n{14} SHA-512 Encryption\n{15} MD5 Encryption\n{16} BLAKE2 Encryption\n{17} ROT13 Encode\n{18} ROT13 Decoder\n{19} XOR Encoder and Decoder<On Work>\n{20} URL Encoder\n{17} Exit. \e[0m"
 until [[ $Choice1 =~ ^-?[0-9]+$ ]]; do
   read -r -p  "   Enter Choice: " Choice1
 done
@@ -102,6 +102,22 @@ case ${Choice1} in
   echo -n "$encode" | xxd -b
   #Conveting the key to binary
   echo -n "$key" | xxd -b
+ ;;
+ 20)
+   read -r -p " Enter the URL to Encode : " encode
+
+	echo "$encode" | sed \
+        -e 's|%|%25|g' \
+	-e 's| |%20|g' \
+	-e 's|"|%22|g' \
+	-e 's|<|%3C|g' \
+	-e 's|>|%3E|g' \
+	-e 's|\\|%5C|g' \
+	-e 's|\^|%5E|g' \
+ 	-e 's|`|%60|g' \
+	-e 's|{|%7B|g' \
+	-e 's|\||%7C|g' \
+	-e 's|}|%7D|g'
  ;;
  22)
   exit
