@@ -1,6 +1,6 @@
 #!/bin/bash
 echo -e  "\e[36;1;40m A Menu Based Calculator. \e[0m"
-echo -e "\e[36;1;40m Below  operatation can be performed using operators.\n{1} Base64 Encoder\n{2} Base64 Decoder\n{3} Hash Identifier\n{4} Base32 Encoder\n{5} Base32 Decoder\n{6} Base58 Encoder\n{7} Base58 Decoder\n{8} Base16 Encoder\n{9} Base16 Decoder\nOne-way Encryption\n{10} SHA-256 Encryption\n{11} SHA-1 Enryption\n{12} SHA-224 Encryption\n{13} SHA-384 Encryption\n{14} SHA-512 Encryption\n{15} MD5 Encryption\n{16} BLAKE2 Encryption\n{17} ROT13 Encode\n{18} ROT13 Decoder\n{19} XOR Encoder and Decoder<On Work>\n{20} URL Encoder\n{17} Exit. \e[0m"
+echo -e "\e[36;1;40m Below  operatation can be performed using operators.\n{1} Base64 Encoder\n{2} Base64 Decoder\n{3} Hash Identifier\n{4} Base32 Encoder\n{5} Base32 Decoder\n{6} Base58 Encoder\n{7} Base58 Decoder\n{8} Base16 Encoder\n{9} Base16 Decoder\nOne-way Encryption\n{10} SHA-256 Encryption\n{11} SHA-1 Enryption\n{12} SHA-224 Encryption\n{13} SHA-384 Encryption\n{14} SHA-512 Encryption\n{15} MD5 Encryption\n{16} BLAKE2 Encryption\n{17} ROT13 Encode\n{18} ROT13 Decoder\n{19} XOR Encoder and Decoder<On Work>\n{20} URL Encoder\n{21} URL Decoder\n{22} HTML Encoder\n{23} HTML Decoder\n{17} Exit. \e[0m"
 until [[ $Choice1 =~ ^-?[0-9]+$ ]]; do
   read -r -p  "   Enter Choice: " Choice1
 done
@@ -119,7 +119,103 @@ case ${Choice1} in
 	-e 's|\||%7C|g' \
 	-e 's|}|%7D|g'
  ;;
+ 21)
+   read -r -p " Enter the URL to Decode : " decode
+
+	echo "$decode" | sed \
+	-e 's|%20| |g' \
+	-e 's|%22|"|g' \
+	-e 's|%3C|<|g' \
+	-e 's|%3E|>|g' \
+	-e 's|%5C|\\|g' \
+	-e 's|%5E|^|g' \
+	-e 's|%60|`|g' \
+	-e 's|%7B|{|g' \
+	-e 's|%7C|\||g' \
+	-e 's|%7D|}|g' \
+	-e 's|%25|%|g'
+ ;;
  22)
+        read -r -p " Enter the Text to Encode : " encode
+	echo "$encode" | sed \
+	-e 's|&|&amp;|g' \
+	-e 's| |&nbsp;|g	' \
+	-e 's|"|	&quot;|g' \
+	-e "s|'|&#39;|g" \
+	-e 's|<|	&lt;|g' \
+	-e 's|>|&gt;|g' \
+	-e 's|¢|&cent;|g' \
+	-e 's|£|&pound;|g' \
+	-e 's|¥|&yen;|g' \
+	-e 's|€|&euro;|g' \
+	-e 's|©|&copy;|g' \
+	-e 's|®|&reg;|g' \
+	-e 's|§|&sect;|g' \
+	-e 's|¶|&para;|g' \
+	-e 's|±|&plusmn;|g' \
+	-e 's|×|&times;|g' \
+	-e 's|÷|&divide;|g' \
+	-e 's|°|&deg;|g' \
+	-e 's|µ|&micro;|g' \
+	-e 's|·|&middot;|g' \
+	-e 's|–|&ndash;|g' \
+	-e 's|—|&mdash;|g' \
+	-e 's|‘|&lsquo;|g' \
+	-e 's|’|&rsquo;|g' \
+	-e 's|“|&ldquo;|g' \
+	-e 's|”|&rdquo;|g' \
+	-e 's|•|&bull;|g' \
+	-e 's|…|&hellip;|g' \
+	-e 's|™|&trade;|g' \
+	-e 's|←|&larr;|g' \
+	-e 's|→|&rarr;|g' \
+	-e 's|↑|&uarr;|g' \
+	-e 's|↓|&darr;|g' \
+	-e 's|↔|&harr;|g'
+ ;;
+ 23)
+  	read -r -p " Enter the Text to Decode : " encode
+     	echo "$encode" | sed \
+        -e 's|&nbsp;| |g' \
+	-e 's|&quot;|"|g' \
+	-e "s|&#39;|'|g" \
+	-e 's|&lt;|<|g' \
+	-e 's|&gt;|>|g' \
+	-e 's|&cent;|¢|g' \
+	-e 's|&pound;|£|g' \
+	-e 's|&yen;|¥|g' \
+	-e 's|&euro;|€|g' \
+	-e 's|&copy;|©|g' \
+	-e 's|&reg;|®|g' \
+	-e 's|&sect;|§|g' \
+	-e 's|&para;|¶|g' \
+	-e 's|&plusmn;|±|g' \
+	-e 's|&times;|×|g' \
+	-e 's|&divide;|÷|g' \
+	-e 's|&deg;|°|g' \
+	-e 's|&micro;|µ|g' \
+	-e 's|&middot;|·|g' \
+	-e 's|&ndash;|–|g' \
+	-e 's|&mdash;|—|g' \
+	-e 's|&lsquo;|‘|g' \
+	-e 's|&rsquo;|’|g' \
+	-e 's|&ldquo;|“|g' \
+	-e 's|&rdquo;|”|g' \
+	-e 's|&bull;|•|g' \
+	-e 's|&hellip;|…|g' \
+	-e 's|&trade;|™|g' \
+	-e 's|&larr;|←|g' \
+	-e 's|&rarr;|→|g' \
+	-e 's|&uarr;|↑|g' \
+	-e 's|&darr;|↓|g' \
+	-e 's|&harr;|↔|g' \
+	-e 's|&amp;|&|g'
+ ;;
+ 24)
+   read -r -p " Enter the Text to Encode : " encode
+   echo "$encode" | xxd -b | sed 's/^.........\|'$encode'//g'
+ ;;
+ 30)
   exit
  ;;
  *)
