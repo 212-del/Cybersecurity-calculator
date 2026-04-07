@@ -9,10 +9,12 @@ case ${Choice1} in
 	read -r -p " Choose mode (e=encode, d=decode) : " mode
 	if [[ "$mode" == "e" ]]; then
 		read -r -p "Enter Text to encode : " Encode
-		echo -n "$Encode" | base64
+		encoded_text=$(echo -n "$Encode" | base64)
+		echo "Encoded text: $encoded_text"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p "Enter Text to decode : " Decode
-		echo -n "$Decode" | base64 -d
+		decoded_text=$(echo -n "$Decode" | base64 -d)
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -42,10 +44,12 @@ case ${Choice1} in
 	read -r -p " Choose mode (e=encode, d=decode) : " mode
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter Text to Encode : " encode
-		echo -n "$encode" | base32
+		encoded_text=$(echo -n "$encode" | base32)
+		echo "Encoded text: $encoded_text"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter Text to Decode : " encode
-		echo -n "$encode" | base32 -d
+		decoded_text=$(echo -n "$encode" | base32 -d)
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -54,10 +58,12 @@ case ${Choice1} in
 	read -r -p " Choose mode (e=encode, d=decode) : " mode
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter Text to Encode : " encode
-		echo -n "$encode" | basenc --base58
+		encoded_text=$(echo -n "$encode" | basenc --base58)
+		echo "Encoded text: $encoded_text"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter Text to Decode : " encode
-		echo -n "$encode" | basenc --base58 -d
+		decoded_text=$(echo -n "$encode" | basenc --base58 -d)
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -66,10 +72,12 @@ case ${Choice1} in
 	read -r -p " Choose mode (e=encode, d=decode) : " mode
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter Text to Encode : " encode
-		echo -n "$encode" | basenc --base16
+		encoded_text=$(echo -n "$encode" | basenc --base16)
+		echo "Encoded text: $encoded_text"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter Text to Decode : " encode
-		echo -n "$encode" | basenc --base16 -d
+		decoded_text=$(echo -n "$encode" | basenc --base16 -d)
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -106,10 +114,12 @@ case ${Choice1} in
 	read -r -p " Choose mode (e=encode, d=decode) : " mode
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter Text to Encode : " encode
-		echo "$encode" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+		rot_result=$(echo "$encode" | tr 'A-Za-z' 'N-ZA-Mn-za-m')
+		echo "Encoded text: $rot_result"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter text to Decode : " encode
-		echo "$encode" | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+		rot_result=$(echo "$encode" | tr 'A-Za-z' 'N-ZA-Mn-za-m')
+		echo "Decoded text: $rot_result"
 	else
 		echo "Invalid mode"
 	fi
@@ -134,7 +144,7 @@ case ${Choice1} in
 			printf -v hex_byte '%02x' "$xor_ord"
 			cipher_hex+="$hex_byte"
 		done
-		echo "XOR encoded (hex): $cipher_hex"
+		echo "Encoded text: $cipher_hex"
 	elif [[ "$xor_mode" == "d" ]]; then
 		read -r -p " Enter XOR hex text : " cipher_hex
 		if [[ ! "$cipher_hex" =~ ^[0-9A-Fa-f]+$ ]] || (( ${#cipher_hex} % 2 != 0 )); then
@@ -164,8 +174,7 @@ case ${Choice1} in
 	read -r -p " Choose mode (e=encode, d=decode) : " mode
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter the URL to Encode : " encode
-
-		echo "$encode" | sed \
+		encoded_text=$(echo "$encode" | sed \
 			-e 's|%|%25|g' \
 			-e 's| |%20|g' \
 			-e 's|"|%22|g' \
@@ -176,11 +185,11 @@ case ${Choice1} in
 			-e 's|`|%60|g' \
 			-e 's|{|%7B|g' \
 			-e 's|\||%7C|g' \
-			-e 's|}|%7D|g'
+			-e 's|}|%7D|g')
+		echo "Encoded text: $encoded_text"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter the URL to Decode : " decode
-
-		echo "$decode" | sed \
+		decoded_text=$(echo "$decode" | sed \
 			-e 's|%20| |g' \
 			-e 's|%22|"|g' \
 			-e 's|%3C|<|g' \
@@ -191,7 +200,8 @@ case ${Choice1} in
 			-e 's|%7B|{|g' \
 			-e 's|%7C|\||g' \
 			-e 's|%7D|}|g' \
-			-e 's|%25|%|g'
+			-e 's|%25|%|g')
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -200,7 +210,7 @@ case ${Choice1} in
 	read -r -p " Choose mode (e=encode, d=decode) : " mode
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter the Text to Encode : " encode
-		echo "$encode" | sed \
+		encoded_text=$(echo "$encode" | sed \
 			-e 's|&|&amp;|g' \
 			-e 's| |&nbsp;|g' \
 			-e 's|"|&quot;|g' \
@@ -234,10 +244,11 @@ case ${Choice1} in
 			-e 's|→|&rarr;|g' \
 			-e 's|↑|&uarr;|g' \
 			-e 's|↓|&darr;|g' \
-			-e 's|↔|&harr;|g'
+			-e 's|↔|&harr;|g')
+		echo "Encoded text: $encoded_text"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter the Text to Decode : " encode
-		echo "$encode" | sed \
+		decoded_text=$(echo "$encode" | sed \
 			-e 's|&nbsp;| |g' \
 			-e 's|&quot;|"|g' \
 			-e "s|&#39;|'|g" \
@@ -271,7 +282,8 @@ case ${Choice1} in
 			-e 's|&uarr;|↑|g' \
 			-e 's|&darr;|↓|g' \
 			-e 's|&harr;|↔|g' \
-			-e 's|&amp;|&|g'
+			-e 's|&amp;|&|g')
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -290,7 +302,7 @@ case ${Choice1} in
 			done
 			binary_output+="$byte "
 		done
-		echo "Binary: ${binary_output% }"
+		echo "Encoded text: ${binary_output% }"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter binary text (example: 01001000 01101001) : " binary_input
 		clean_binary="${binary_input// /}"
@@ -316,7 +328,7 @@ case ${Choice1} in
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter Text to Encode : " encode
 		utf_hex=$(echo -n "$encode" | iconv -f UTF-8 -t UTF-8 | xxd -p -c 256)
-		echo "UTF-8 (hex): $utf_hex"
+		echo "Encoded text: $utf_hex"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter Text to Decode : " decode
 		clean_hex="${decode// /}"
@@ -325,7 +337,7 @@ case ${Choice1} in
 			exit 1
 		fi
 		decoded_text=$(echo -n "$clean_hex" | xxd -r -p | iconv -f UTF-8 -t UTF-8)
-		echo "Decoded UTF-8 text: $decoded_text"
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -335,7 +347,7 @@ case ${Choice1} in
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter Text to Encode : " encode
 		utf_hex=$(echo -n "$encode" | iconv -f UTF-8 -t UTF-16LE | xxd -p -c 256)
-		echo "UTF-16 (hex): $utf_hex"
+		echo "Encoded text: $utf_hex"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter Text to Decode : " decode
 		clean_hex="${decode// /}"
@@ -344,7 +356,7 @@ case ${Choice1} in
 			exit 1
 		fi
 		decoded_text=$(echo -n "$clean_hex" | xxd -r -p | iconv -f UTF-16LE -t UTF-8)
-		echo "Decoded UTF-16 text: $decoded_text"
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -354,7 +366,7 @@ case ${Choice1} in
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter Text to Encode : " encode
 		utf_hex=$(echo -n "$encode" | iconv -f UTF-8 -t UTF-32LE | xxd -p -c 256)
-		echo "UTF-32 (hex): $utf_hex"
+		echo "Encoded text: $utf_hex"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter Text to Decode : " decode
 		clean_hex="${decode// /}"
@@ -363,7 +375,7 @@ case ${Choice1} in
 			exit 1
 		fi
 		decoded_text=$(echo -n "$clean_hex" | xxd -r -p | iconv -f UTF-32LE -t UTF-8)
-		echo "Decoded UTF-32 text: $decoded_text"
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -378,7 +390,7 @@ case ${Choice1} in
 			printf -v ord '%d' "'$ch"
 			decimal_output+="$ord "
 		done
-		echo "Decimal: ${decimal_output% }"
+		echo "Encoded text: ${decimal_output% }"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter Text to Decode : " decode
 		decoded_text=""
@@ -391,16 +403,19 @@ case ${Choice1} in
 			printf -v ch '\\x%02x' "$n"
 			decoded_text+="$ch"
 		done
-		printf 'Decoded decimal text: %b\n' "$decoded_text"
+		printf 'Decoded text: %b\n' "$decoded_text"
 	else
 		echo "Invalid mode"
 	fi
  ;;
  22)
+ #Hexadecimal is just a base-16 representation
+ #So at 5th choice we have base16 encoding and decoding which is same as hexadecimal encoding and decoding
 	read -r -p " Choose mode (e=encode, d=decode) : " mode
 	if [[ "$mode" == "e" ]]; then
 		read -r -p " Enter Text to Encode : " encode
-		echo -n "$encode" | xxd -p -c 256
+		encoded_text=$(echo -n "$encode" | xxd -p -c 256)
+		echo "Encoded text: $encoded_text"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter Text to Decode : " decode
 		clean_hex="${decode// /}"
@@ -408,7 +423,8 @@ case ${Choice1} in
 			echo "Invalid hex input"
 			exit 1
 		fi
-		echo -n "$clean_hex" | xxd -r -p
+		decoded_text=$(echo -n "$clean_hex" | xxd -r -p)
+		echo "Decoded text: $decoded_text"
 	else
 		echo "Invalid mode"
 	fi
@@ -423,7 +439,7 @@ case ${Choice1} in
 			printf -v ord '%d' "'$ch"
 			ascii_output+="$ord "
 		done
-		echo "ASCII: ${ascii_output% }"
+		echo "Encoded text: ${ascii_output% }"
 	elif [[ "$mode" == "d" ]]; then
 		read -r -p " Enter Text to Decode : " decode
 		decoded_text=""
@@ -436,10 +452,76 @@ case ${Choice1} in
 			printf -v ch '\\x%02x' "$n"
 			decoded_text+="$ch"
 		done
-		printf 'Decoded ASCII text: %b\n' "$decoded_text"
+		printf 'Decoded text: %b\n' "$decoded_text"
 	else
 		echo "Invalid mode"
 	fi
+ ;;
+ 24
+	 declare -A MORSE
+
+	MORSE[A]=".-"
+	MORSE[B]="-..."
+	MORSE[C]="-.-."
+	MORSE[D]="-.."
+	MORSE[E]="."
+	MORSE[F]="..-."
+	MORSE[G]="--."
+	MORSE[H]="...."
+	MORSE[I]=".."
+	MORSE[J]=".---"
+	MORSE[K]="-.-"
+	MORSE[L]=".-.."
+	MORSE[M]="--"
+	MORSE[N]="-."
+	MORSE[O]="---"
+	MORSE[P]=".--."
+	MORSE[Q]="--.-"
+	MORSE[R]=".-."
+	MORSE[S]="..."
+	MORSE[T]="-"
+	MORSE[U]="..-"
+	MORSE[V]="...-"
+	MORSE[W]=".--"
+	MORSE[X]="-..-"
+	MORSE[Y]="-.--"
+	MORSE[Z]="--.."
+
+	MORSE[0]="-----"
+	MORSE[1]=".----"
+	MORSE[2]="..---"
+	MORSE[3]="...--"
+	MORSE[4]="....-"
+	MORSE[5]="....."
+	MORSE[6]="-...."
+	MORSE[7]="--..."
+	MORSE[8]="---.."
+	MORSE[9]="----."
+         read -r -p " Choose mode (e=encode, d=decode) : " mode
+         if [[ "$mode" == "e" ]]; then
+                 read -r -p " Enter Text to Encode : " encode
+		  encode=$(echo "$input" | tr '[:lower:]' '[:upper:]')
+		  output=""
+		  for (( i=0; i<${#encode}; i++ )); do
+		    char="${input:$i:1}"
+
+		    if [[ "$char" == " " ]]; then
+		        # Word separator
+		        output+="/ "
+		    elif [[ -n "${MORSE[$char]}" ]]; then
+		        # Letter conversion
+		        output+="${MORSE[$char]} "
+		    else
+		        # Ignore unknown characters
+		        output+="? "
+		    fi
+		done
+		 echo -n "Morse Code: "$output
+         elif [[ "$mode" == "d" ]]; then
+                 read -r -p " Enter Text to Decode : " decode
+	 else
+		 echo "Invalid mode"
+	 fi
  ;;
  30)
   exit
